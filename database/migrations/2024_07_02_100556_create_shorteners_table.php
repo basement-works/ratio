@@ -8,15 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->renameColumn('date', 'date_transaction');
+        Schema::create('shorteners', function (Blueprint $table) {
+            $table->id();
+            $table->string('original_url');
+            $table->string('shorten_url')->unique();
+            $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::table('transactions', function (Blueprint $table) {
-            $table->renameColumn('date_transaction', 'date');
-        });
+        Schema::dropIfExists('shorteners');
     }
 };

@@ -8,18 +8,18 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
+        Schema::create('blogs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->boolean('is_expense')->default(true);
-            $table->string('image')->nullable();
+            $table->foreignId('users_id')->constrained('users')->cascadeOnDelete()->nullable();
+            $table->string('title');
+            $table->text('content');
+            $table->string('thumbnail')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('blogs');
     }
 };
